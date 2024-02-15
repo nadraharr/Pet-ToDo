@@ -1,0 +1,12 @@
+
+
+<% @tasks.each do |task| %>
+  <div class="p-3 mb-2 bg-warning text-dark">    
+    <%= form_with url: "/destroy", method: :get do |f| %>
+      <%= f.hidden_field :id, value: task.id %>
+      <%= f.submit "Done" %>        
+      <%= task.title %>
+    <% end %>
+
+  </div>
+<% end %>
