@@ -2,13 +2,13 @@ class TasksController < ApplicationController
 
     def today
         @tasks = Task.where(today: true)
-        @today = true
+        @current_page = "today"
         @repeat = "once"
     end
   
     def later
         @tasks = Task.where(today: false)
-        @today = false
+        @current_page = "later"
         @repeat = "everyday"
     end
 
