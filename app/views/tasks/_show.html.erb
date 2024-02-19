@@ -1,12 +1,12 @@
-
-
+<% if user_signed_in? %>
 <% @tasks.each do |task| %>
   <div class="p-3 mb-2 bg-warning text-dark">    
-    <%= form_with url: "/destroy", method: :get do |f| %>
-      <%= f.hidden_field :id, value: task.id %>
-      <%= f.submit "Done" %>        
-      <%= task.title %>
-    <% end %>
+      <%= link_to "delete", user_task_path(@user, task), type: "button", data: { turbo_method: :delete } %>      
 
+      <%= form_with model: [@user, task] do |form| %>
+      <%= form.text_field :title %>
+      <%= form.submit %>
+      <%end%>
   </div>
+<% end %>
 <% end %>

@@ -1,19 +1,30 @@
 class TasksController < ApplicationController
 
-    def today
-        @tasks = Task.where(today: true)
+    def today        
         @current_page = "today"
+        if user_signed_in?
+        @user = current_user
+        @task = @user.tasks.build
+        @tasks = @user.tasks.where(today: true)
+        @today = true
         @repeat = "once"
+        end
     end
   
     def later
-        @tasks = Task.where(today: false)
         @current_page = "later"
+        if user_signed_in?
+        @user = current_user
+        @task = @user.tasks.build
+        @tasks = @user.tasks.where(today: false)        
+        @today = false
         @repeat = "everyday"
+        end
     end
 
     def create
-        @task = Task.new(task_params)
+        @user = current_user
+        @task = @user.tasks.build(task_params)
         if @task.today == true
             @task.save
             redirect_to "/today"
@@ -23,8 +34,11 @@ class TasksController < ApplicationController
         end
     end
 
-    def edit
+    def update
         @task = Task.find_by id: params[:id]
+        if @task.update(task_params)
+         @task.today ? (redirect_to "/today") : (redirect_to "/later")
+        end
     end
 
     def destroy
@@ -40,6 +54,6 @@ class TasksController < ApplicationController
 
     private
     def task_params
-        params.permit(:title, :today, :repeat)
+        params.require(:task).permit(:title, :today, :repeat)
     end
 end
