@@ -2,11 +2,24 @@
 <% @tasks.each do |task| %>
   <div class="p-3 mb-2 bg-warning text-dark">    
       <%= link_to "delete", user_task_path(@user, task), type: "button", data: { turbo_method: :delete } %>      
-
+      <%= task.inspect %>
       <%= form_with model: [@user, task] do |form| %>
       <%= form.text_field :title %>
       <%= form.submit %>
       <%end%>
+
+                            <%if @current_page == "later" %>
+                            <%= form_with model: [@user, task] do |form| %>
+                            <%= form.hidden_field :title, value: task.title %>
+                            <%= form.hidden_field :repeat, value: "today" %>
+                            <%= form.submit "do it today"%>
+                            <% end %>
+                            <%end%>
+                            
+                            
+      
+
+      
   </div>
 <% end %>
 <% end %>

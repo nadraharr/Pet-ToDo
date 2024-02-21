@@ -5,9 +5,8 @@ class TasksController < ApplicationController
         if user_signed_in?
         @user = current_user
         @task = @user.tasks.build
-        @tasks = @user.tasks.where(today: true)
-        @today = true
-        @repeat = "once"
+        @tasks = @user.tasks.where(repeat: "today")
+        @repeat = "today"
         end
     end
   
@@ -16,8 +15,17 @@ class TasksController < ApplicationController
         if user_signed_in?
         @user = current_user
         @task = @user.tasks.build
-        @tasks = @user.tasks.where(today: false)        
-        @today = false
+        @tasks = @user.tasks.where(repeat: "once")    
+        @repeat = "once"
+        end
+    end
+
+    def everyday
+        @current_page = "today"
+        if user_signed_in?
+        @user = current_user
+        @task = @user.tasks.build
+        @tasks = @user.tasks.where(repeat: "everyday") 
         @repeat = "everyday"
         end
     end
@@ -25,35 +33,38 @@ class TasksController < ApplicationController
     def create
         @user = current_user
         @task = @user.tasks.build(task_params)
-        if @task.today == true
-            @task.save
-            redirect_to "/today"
-        else
-            @task.save
-            redirect_to "/later"
+        current = "/#{@task.repeat}"
+        if @task.save
+            redirect_to current
         end
     end
 
     def update
         @task = Task.find_by id: params[:id]
+        current = "/#{@task.repeat}"
         if @task.update(task_params)
-         @task.today ? (redirect_to "/today") : (redirect_to "/later")
+            redirect_to current
         end
     end
 
     def destroy
         @task = Task.find_by id: params[:id]
-        if @task.today == true
+        current = "/#{@task.repeat}"
             @task.destroy
-            redirect_to "/today"
-        else
-            @task.destroy
-            redirect_to "/later"
+            redirect_to current
+    end
+
+    def new_day        
+        @user = current_user
+        @arr = @user.tasks.where(repeat: "everyday") 
+        @arr.each do |task|
+            @user.tasks.build(title: task.title, repeat: "today").save
         end
+        redirect_to "/today"
     end
 
     private
     def task_params
-        params.require(:task).permit(:title, :today, :repeat)
+        params.require(:task).permit(:title, :repeat)
     end
 end
