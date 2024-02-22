@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
-  get 'later', to: "pages#later" 
-  get 'login', to: "pages#log_in" 
-  get 'register', to: "pages#sign_in" 
-  get 'today', to: "pages#today" 
-  root "pages#index"
+  root "tasks#today"
+  get 'later', to: "tasks#later" 
+  get 'today', to: "tasks#today" 
+  get 'everyday', to: "tasks#everyday" 
+  get 'new_day', to: "tasks#new_day" 
+
+  resources :users do
+    resources :tasks
+  end
+  
+  resource :session, only: %i[new create destroy]
 end

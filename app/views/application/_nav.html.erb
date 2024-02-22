@@ -1,0 +1,37 @@
+<nav class="navbar navbar-dark bg-dark mb-2">
+
+    <form class="form-inline">
+    <%if @current_page == "today" %>
+    <button class="btn btn-outline-success" type="button">Today</button>
+    <a href="/later"><button class="btn btn-sm btn-outline-secondary" type="button">Later</button></a> 
+    <%elsif @current_page == "later" %>
+    <a href="/today"><button class="btn btn-outline-secondary" type="button">Today</button></a>
+    <button class="btn btn-sm btn-outline-success" type="button">Later</button>
+    <%else%>
+    <a href="/today"><button class="btn btn-outline-secondary" type="button">Today</button></a>
+    <a href="/later"><button class="btn btn-sm btn-outline-secondary" type="button">Later</button></a> 
+    <%end%>    
+    </form>
+
+
+
+    <form class="form-inline">
+      <%if user_signed_in? %>
+        <%= link_to "Log Out", session_path, class: "btn btn-outline-secondary", type: "button", data: { turbo_method: :delete } %>
+      <%else%> 
+        <% if @current_page == "login" %>
+          <%= link_to "Sign Up", new_user_path, class: "btn btn-sm btn-outline-secondary", type: "button" %>
+          <%= link_to "Log In", new_session_path, class: "btn btn-outline-success", type: "button" %>
+        <% elsif @current_page == "signup" %>
+          <%= link_to "Sign Up", new_user_path, class: "btn btn-sm btn-outline-success", type: "button" %>
+          <%= link_to "Log In", new_session_path, class: "btn btn-outline-secondary", type: "button" %>
+        <%else%>
+          <%= link_to "Sign Up", new_user_path, class: "btn btn-sm btn-outline-secondary", type: "button" %>
+          <%= link_to "Log In", new_session_path, class: "btn btn-outline-secondary", type: "button" %>
+        <% end %>
+      <%end%>
+    </form>
+
+</nav>
+
+<%= current_user.email  if user_signed_in? %>
