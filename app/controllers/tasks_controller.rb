@@ -1,41 +1,42 @@
 class TasksController < ApplicationController
 
     def today        
-        @current_page = "today"
+        @current_page = "today"        
+        @repeat = "today"
         if user_signed_in?
         @user = current_user
-        @task = @user.tasks.build
+        @task = @user.tasks.build(repeat: "today")
         @tasks = @user.tasks.where(repeat: "today")
-        @repeat = "today"
         end
     end
   
     def later
-        @current_page = "later"
+        @current_page = "later"        
+        @repeat = "once"
         if user_signed_in?
         @user = current_user
         @task = @user.tasks.build
         @tasks = @user.tasks.where(repeat: "once")    
-        @repeat = "once"
         end
     end
 
     def everyday
-        @current_page = "today"
+        @current_page = "everyday"
+        @repeat = "everyday"
         if user_signed_in?
         @user = current_user
-        @task = @user.tasks.build
+        @task = @user.tasks.build(repeat: "everyday")
         @tasks = @user.tasks.where(repeat: "everyday") 
-        @repeat = "everyday"
         end
     end
 
     def create
         @user = current_user
         @task = @user.tasks.build(task_params)
-        current = "/#{@task.repeat}"
-        if @task.save
-            redirect_to current
+        current = params[:task][:current_page]
+
+        if @task.save            
+            redirect_to "/#{current}"
         end
     end
 

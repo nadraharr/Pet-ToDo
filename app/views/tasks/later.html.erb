@@ -1,14 +1,18 @@
 <%= render "nav" %>
 <p> Once: </p>
 <%= render "show" %>
+<% if @user && @task %>
 
 <%= render "new" %>
 
+
 </br>
+
 <p> Many: </p>
 <% @many = @user.tasks.where(repeat: "many") %> 
 <% @many.each do |task| %>
   <div class="p-3 mb-2 bg-warning text-dark">    
+
       <%= link_to "delete", user_task_path(@user, task), type: "button", data: { turbo_method: :delete } %>      
       <%= task.inspect %>
       <%= form_with model: [@user, task] do |form| %>
@@ -16,12 +20,13 @@
       <%= form.submit %>
       <%end%>
 
-                                    <%= form_with model: [@user, task] do |form| %>
-                            <%= form.hidden_field :title, value: task.title %>
-                            <%= form.hidden_field :repeat, value: "today" %>
-                            <%= form.submit "do it today"%>
-                            <% end %>
-
+      <% task_for_today = @user.tasks.build %>
+      <%= form_with model: [@user, task_for_today] do |form| %>
+      <%= form.hidden_field :title, value: task.title %>
+      <%= form.hidden_field :repeat, value: "today" %>
+      <%= form.hidden_field :current_page, value: @current_page %>
+      <%= form.submit "do it today"%>
+      <% end %>
       
   </div>
 <% end %>
@@ -29,5 +34,9 @@
 <%= form_with model: [@user, @task] do |form| %>
   <%= form.text_field :title %>
   <%= form.hidden_field :repeat, value: "many" %>
+  <%= form.hidden_field :current_page, value: @current_page %>
   <%= form.submit %>
+<% end %>
+
+
 <% end %>
