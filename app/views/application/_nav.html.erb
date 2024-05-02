@@ -1,6 +1,7 @@
 <nav class="navbar navbar-dark bg-dark mb-2">
-
-    <form class="form-inline">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
     <%if @current_page == "today" %>
     <button class="btn btn-outline-success" type="button">Today</button>
     <a href="/later"><button class="btn btn-sm btn-outline-secondary" type="button">Later</button></a> 
@@ -10,12 +11,12 @@
     <%else%>
     <a href="/today"><button class="btn btn-outline-secondary" type="button">Today</button></a>
     <a href="/later"><button class="btn btn-sm btn-outline-secondary" type="button">Later</button></a> 
-    <%end%>    
-    </form>
+    <%end%>  
+    </div>
+</div>
 
 
-
-    <form class="form-inline">
+    <div class="">
       <%if user_signed_in? %>
         <%= link_to "Log Out", session_path, class: "btn btn-outline-secondary", type: "button", data: { turbo_method: :delete } %>
       <%else%> 
@@ -30,8 +31,7 @@
           <%= link_to "Log In", new_session_path, class: "btn btn-outline-secondary", type: "button" %>
         <% end %>
       <%end%>
-    </form>
-
+    </div>
+    
+</div>
 </nav>
-
-<%= current_user.email  if user_signed_in? %>

@@ -3,7 +3,7 @@
 <%= form_with model: [@user, @task] do |form| %>
   <%= form.text_field :title %>
   <%= form.hidden_field :repeat, value: @repeat %>
-  <%= form.submit %>
+  <%= form.submit "Create"%>
 <% end %>
 
 <% end %>
