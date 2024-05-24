@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+    
     def new
         @current_page = "login"
     end

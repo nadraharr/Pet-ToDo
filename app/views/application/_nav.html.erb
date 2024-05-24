@@ -1,19 +1,27 @@
 <nav class="navbar navbar-dark bg-dark mb-2">
-<div class="container-fluid">
-  <div class="row">
-    <div class="col">
-    <%if @current_page == "today" %>
-    <button class="btn btn-outline-success" type="button">Today</button>
-    <a href="/later"><button class="btn btn-sm btn-outline-secondary" type="button">Later</button></a> 
-    <%elsif @current_page == "later" %>
-    <a href="/today"><button class="btn btn-outline-secondary" type="button">Today</button></a>
-    <button class="btn btn-sm btn-outline-success" type="button">Later</button>
-    <%else%>
-    <a href="/today"><button class="btn btn-outline-secondary" type="button">Today</button></a>
-    <a href="/later"><button class="btn btn-sm btn-outline-secondary" type="button">Later</button></a> 
-    <%end%>  
+  <div class="container-fluid">
+    <div class="">
+      <%if user_signed_in? %>
+      
+        <% if @current_page == "today" %>
+          <%= button_tag "Today", class: "btn btn-outline-success" %>
+          <%= link_to "Daily", everyday_path, class: "btn btn-sm btn-outline-secondary" %>
+          <%= link_to "Later", later_path, class: "btn btn-sm btn-outline-secondary" %>
+        <% elsif @current_page == "later" %>
+          <%= link_to "Today", today_path, class: "btn btn-outline-secondary" %>
+          <%= link_to "Daily", everyday_path, class: "btn btn-sm btn-outline-secondary" %>
+          <%= button_tag "Later", class: "btn btn-sm btn-outline-success" %>
+        <% elsif @current_page == "everyday"%>
+          <%= link_to "Today", today_path, class: "btn btn-outline-secondary" %>
+          <%= button_tag "Daily", class: "btn btn-sm btn-outline-success" %>
+          <%= link_to "Later", later_path, class: "btn btn-sm btn-outline-secondary" %>
+        <% else %>
+          <%= link_to "Today", today_path, class: "btn btn-outline-secondary" %>
+          <%= link_to "Daily", everyday_path, class: "btn btn-sm btn-outline-secondary" %>
+          <%= link_to "Later", later_path, class: "btn btn-sm btn-outline-secondary" %>
+        <% end %>        
+      <% end %>
     </div>
-</div>
 
 
     <div class="">
@@ -26,12 +34,11 @@
         <% elsif @current_page == "signup" %>
           <%= link_to "Sign Up", new_user_path, class: "btn btn-sm btn-outline-success", type: "button" %>
           <%= link_to "Log In", new_session_path, class: "btn btn-outline-secondary", type: "button" %>
-        <%else%>
+        <% else %>
           <%= link_to "Sign Up", new_user_path, class: "btn btn-sm btn-outline-secondary", type: "button" %>
           <%= link_to "Log In", new_session_path, class: "btn btn-outline-secondary", type: "button" %>
         <% end %>
       <%end%>
     </div>
-    
-</div>
+  </div> 
 </nav>

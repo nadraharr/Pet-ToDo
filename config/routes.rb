@@ -3,10 +3,10 @@ Rails.application.routes.draw do
   get 'later', to: "tasks#later" 
   get 'today', to: "tasks#today" 
   get 'everyday', to: "tasks#everyday" 
-  get 'new_day', to: "tasks#new_day" 
+  post 'new_day', to: "tasks#new_day" 
 
-  resources :users do
-    resources :tasks
+  resources :users, only: %i[new create] do
+    resources :tasks, only: %i[new create update destroy]
   end
   
   resource :session, only: %i[new create destroy]

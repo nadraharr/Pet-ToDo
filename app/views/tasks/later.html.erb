@@ -1,4 +1,5 @@
 <%= render "nav" %>
+<%if user_signed_in? %>
 <p> Once: </p>
 <%= render "show" %>
 <%= render "new" %>
@@ -37,4 +38,6 @@
   <%= form.text_field :title %>
   <%= form.hidden_field :repeat, value: "many" %>
   <%= form.submit "Create"%>
+<% end %>
+
 <% end %>

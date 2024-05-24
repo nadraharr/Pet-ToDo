@@ -21,7 +21,7 @@ class TasksController < ApplicationController
     end
 
     def everyday
-        @current_page = "today"
+        @current_page = "everyday"
         if user_signed_in?
         @user = current_user
         @task = @user.tasks.build
@@ -33,25 +33,22 @@ class TasksController < ApplicationController
     def create
         @user = current_user
         @task = @user.tasks.build(task_params)
-        current = "/#{@task.repeat}"
         if @task.save
-            redirect_to current
+            redirect_back_or_to root_path
         end
     end
 
     def update
         @task = Task.find_by id: params[:id]
-        current = "/#{@task.repeat}"
         if @task.update(task_params)
-            redirect_to current
+            redirect_back_or_to root_path
         end
     end
 
     def destroy
         @task = Task.find_by id: params[:id]
-        current = "/#{@task.repeat}"
             @task.destroy
-            redirect_to current
+            redirect_back_or_to root_path
     end
 
     def new_day        
@@ -60,7 +57,7 @@ class TasksController < ApplicationController
         @arr.each do |task|
             @user.tasks.build(title: task.title, repeat: "today").save
         end
-        redirect_to "/today"
+        redirect_to :today 
     end
 
     private
