@@ -1,0 +1,7 @@
+<% provide :page_title, "Later" %>
+<% currently_at "Later" %>
+
+<% if user_signed_in? %>
+  <%= render @tasks %>
+  <%= render "tasks/new" %>
+<% end %>

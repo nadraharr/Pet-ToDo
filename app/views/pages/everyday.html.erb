@@ -1,0 +1,7 @@
+<% provide :page_title, "Daily" %>
+<% currently_at "Daily" %>
+
+<% if user_signed_in? %>
+    <%= render @tasks %>
+    <%= render "tasks/new" %>
+<% end %>

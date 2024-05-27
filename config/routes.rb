@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  root "tasks#today"
-  get 'later', to: "tasks#later" 
-  get 'today', to: "tasks#today" 
-  get 'everyday', to: "tasks#everyday" 
+  root "pages#today"
+  get 'later', to: "pages#later" 
+  get 'today', to: "pages#today" 
+  get 'everyday', to: "pages#everyday" 
   post 'new_day', to: "tasks#new_day" 
 
   resources :users, only: %i[new create] do

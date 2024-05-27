@@ -1,11 +1,12 @@
-<%= render "nav" %>
+<% provide :page_title, "Sign up" %>
+<% currently_at "Sign up" %>
 
 <%= form_with model: @user do |f| %>
-<p><%= f.label :email %>
-<%= f.email_field :email, placeholder: "Email" %></p>
-<p><%= f.label :password %>
-<%= f.password_field :password %></p>
-<p><%= f.label :password_confirmation %>
-<%= f.password_field :password_confirmation %></p>
-<p><%= f.submit "Register" %></p>
+    <%= f.label :email %>
+    <%= f.email_field :email, placeholder: "Email" %>
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation %>
+    <%= f.submit "Register" %>
 <% end %>

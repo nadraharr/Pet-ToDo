@@ -1,44 +1,24 @@
-<nav class="navbar navbar-dark bg-dark mb-2">
-  <div class="container-fluid">
-    <div class="">
-      <%if user_signed_in? %>
-      
-        <% if @current_page == "today" %>
-          <%= button_tag "Today", class: "btn btn-outline-success" %>
-          <%= link_to "Daily", everyday_path, class: "btn btn-sm btn-outline-secondary" %>
-          <%= link_to "Later", later_path, class: "btn btn-sm btn-outline-secondary" %>
-        <% elsif @current_page == "later" %>
-          <%= link_to "Today", today_path, class: "btn btn-outline-secondary" %>
-          <%= link_to "Daily", everyday_path, class: "btn btn-sm btn-outline-secondary" %>
-          <%= button_tag "Later", class: "btn btn-sm btn-outline-success" %>
-        <% elsif @current_page == "everyday"%>
-          <%= link_to "Today", today_path, class: "btn btn-outline-secondary" %>
-          <%= button_tag "Daily", class: "btn btn-sm btn-outline-success" %>
-          <%= link_to "Later", later_path, class: "btn btn-sm btn-outline-secondary" %>
-        <% else %>
-          <%= link_to "Today", today_path, class: "btn btn-outline-secondary" %>
-          <%= link_to "Daily", everyday_path, class: "btn btn-sm btn-outline-secondary" %>
-          <%= link_to "Later", later_path, class: "btn btn-sm btn-outline-secondary" %>
-        <% end %>        
-      <% end %>
-    </div>
+<%= provide :nav do %>
 
-
-    <div class="">
-      <%if user_signed_in? %>
-        <%= link_to "Log Out", session_path, class: "btn btn-outline-secondary", type: "button", data: { turbo_method: :delete } %>
-      <%else%> 
-        <% if @current_page == "login" %>
-          <%= link_to "Sign Up", new_user_path, class: "btn btn-sm btn-outline-secondary", type: "button" %>
-          <%= link_to "Log In", new_session_path, class: "btn btn-outline-success", type: "button" %>
-        <% elsif @current_page == "signup" %>
-          <%= link_to "Sign Up", new_user_path, class: "btn btn-sm btn-outline-success", type: "button" %>
-          <%= link_to "Log In", new_session_path, class: "btn btn-outline-secondary", type: "button" %>
-        <% else %>
-          <%= link_to "Sign Up", new_user_path, class: "btn btn-sm btn-outline-secondary", type: "button" %>
-          <%= link_to "Log In", new_session_path, class: "btn btn-outline-secondary", type: "button" %>
+  <nav class="navbar navbar-dark bg-dark mb-2">
+    <div class="container-fluid">
+      <div class="">
+        <%if user_signed_in? %>
+          <%= nav_tab "Today", today_path, class: "btn", current_page: current_page %>
+          <%= nav_tab "Daily", everyday_path, class: "btn btn-sm", current_page: current_page %>
+          <%= nav_tab "Later", later_path, class: "btn btn-sm", current_page: current_page %>      
         <% end %>
-      <%end%>
-    </div>
-  </div> 
-</nav>
+      </div>
+
+
+      <div class="">
+        <%if user_signed_in? %>
+          <%= nav_tab "Log out", session_path, class: "btn btn-outline-secondary", data: { turbo_method: :delete }, current_page: current_page %>
+        <%else%>           
+          <%= nav_tab "Log in", new_session_path, class: "btn", current_page: current_page %>
+          <%= nav_tab "Sign up", new_user_path, class: "btn", current_page: current_page %>
+        <%end%>
+      </div>
+    </div> 
+  </nav>
+<% end %>

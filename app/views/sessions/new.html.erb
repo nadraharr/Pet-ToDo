@@ -1,8 +1,10 @@
-<%= render "nav"%>
+<% provide :page_title, "Log in" %>
+<% currently_at "Log in" %>
+
 <%= form_with url: session_path do |f| %>
-<p><%= f.label :email %>
-<%= f.email_field :email, placeholder: "Email" %></p>
-<p><%= f.label :password %>
-<%= f.password_field :password %></p>
-<p><%= f.submit "LOG IN" %></p>
+    <%= f.label :email %>
+    <%= f.email_field :email, placeholder: "Email" %>
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+    <%= f.submit "Log in" %>
 <% end %>

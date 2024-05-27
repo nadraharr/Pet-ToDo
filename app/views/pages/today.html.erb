@@ -1,0 +1,12 @@
+<% provide :page_title, "Today" %>
+<% currently_at "Today" %>
+
+<% if user_signed_in? %>
+
+  <%= render @tasks %>
+  <%= render "tasks/new" %>
+
+  <%= form_with url: new_day_path do %>
+    <%= submit_tag "Start New Day" %>
+  <% end %>
+<% end %>
