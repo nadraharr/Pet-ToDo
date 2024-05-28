@@ -1,45 +1,37 @@
-<div class="container-fluid p-3 mb-2 bg-warning text-dark d-flex">  
-    <div class="row">
-        <div class="col">
-        <%= task.title %>
-        </div>
-
-        <div class="col">
-        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal<%= task.id %>">Edit</button>
+<div class="container-fluid p-1 mb-2 bg-dark text-warning d-flex rounded-4 border-bottom border-1 border-secondary">  
+    <div class="row w-100">
+        <div class="col mx-4">
+            <strong><%= task.title %></strong>
         </div>
         
-        <div class="modal fade" id="exampleModal<%= task.id %>" tabindex="-1" aria-labelledby="exampleModalLabel<%= task.id %>" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
+
+        <div class="col text-end d-flex justify-content-end">
+            <%= link_to "Delete", user_task_path(current_user, task), type: "button", class: "btn btn-sm btn-outline-danger me-2", data: { turbo_method: :delete } %>
+            <button type="button" class="btn btn-sm btn-outline-info me-2" data-bs-toggle="modal" data-bs-target="#Modal<%= task.id %>">Edit</button>
+      
+            <% if task.repeat == "once" %>
+                <%= form_with model: [current_user, task], class: "d-inline" do |form| %>
+                <%= form.hidden_field :repeat, value: "today" %>
+                <%= form.submit "Do it today", class: "btn btn-sm btn-outline-success" %>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="Modal<%= task.id %>" tabindex="-1" aria-labelledby="ModalLabel<%= task.id %>" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel<%= task.id %>">Edit Task</h5>
+                <h5 class="modal-title" id="ModalLabel<%= task.id %>">Edit task</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <%= form_with model: [current_user, task] do |form| %>
-                <%= form.text_field :title %>
-                <%= form.submit "Update", class: "btn btn-info" %>      
+                <%= form.text_field :title, class: "mb-2 form-control", minlength: 1, maxlength: 150 %>
+                <%= form.submit "Update" %>  
                 <% end %>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-            </div>
         </div>
-        </div>
-        
-        <div class="col">
-        <%= link_to "delete", user_task_path(current_user, task), type: "button", class: "btn btn-danger", data: { turbo_method: :delete } %>
-        </div>
-
-        <div class="col">
-        <% if task.repeat == "once" %>
-            <%= form_with model: [current_user, task] do |form| %>
-            <%= form.hidden_field :repeat, value: "today" %>
-            <%= form.submit "do it today", class: "btn btn-success"%>
-            <% end %>
-        <% end %>
-        </div>  
     </div>
 </div>
