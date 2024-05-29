@@ -1,10 +1,28 @@
 <% provide :page_title, "Log in" %>
 <% currently_at "Log in" %>
 
-<%= form_with url: session_path do |f| %>
-    <%= f.label :email %>
-    <%= f.email_field :email, placeholder: "Email" %>
-    <%= f.label :password %>
-    <%= f.password_field :password %>
-    <%= f.submit "Log in" %>
-<% end %>
+<div class="container">
+    <%= form_with url: session_path do |f| %>
+        <div class="row">
+        <%= f.label :email, class: "text-white" %>
+        </div>
+
+        <div class="row mb-2">
+            <div class="col">
+                <%= f.email_field :email, required: true, class: "form-control-sm" %>
+            </div>
+        </div>
+
+        <div class="row">
+            <%= f.label :password, class: "text-white" %>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col">
+                <%= f.password_field :password, required: true, class: "form-control-sm" %>
+            </div>
+        </div>
+
+        <%= f.submit "Log in" %>
+    <% end %>
+</div>

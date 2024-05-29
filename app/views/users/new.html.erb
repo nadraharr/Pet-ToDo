@@ -1,12 +1,27 @@
 <% provide :page_title, "Sign up" %>
 <% currently_at "Sign up" %>
 
-<%= form_with model: @user do |f| %>
-    <%= f.label :email %>
-    <%= f.email_field :email, placeholder: "Email" %>
-    <%= f.label :password %>
-    <%= f.password_field :password %>
-    <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation %>
-    <%= f.submit "Register" %>
-<% end %>
+<div class="container">
+    <%= form_with model: @user do |f| %>
+        <div class="row">
+            <%= f.label :email, class: "text-white" %>
+        </div>
+        <%= f.email_field :email, required: true, class: "form-control-sm mb-2" %>
+
+        <div class="row">
+            <%= f.label :password, class: "text-white" %>
+        </div>
+        <%= f.password_field :password, required: true, class: "form-control-sm mb-2" %>
+
+        <div class="row">
+            <%= f.label :password_confirmation, class: "text-white" %>
+        </div>
+        <%= f.password_field :password_confirmation, required: true, class: "form-control-sm mb-3" %>
+
+        <div class="row">
+            <div class="col">
+                <%= f.submit "Register" %>
+            </div>
+        </div>
+    <% end %>
+</div>

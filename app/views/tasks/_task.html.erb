@@ -28,7 +28,7 @@
             </div>
             <div class="modal-body">
                 <%= form_with model: [current_user, task] do |form| %>
-                <%= form.text_field :title, class: "mb-2 form-control", minlength: 1, maxlength: 150 %>
+                <%= form.text_field :title, class: "mb-2 form-control", required: true, minlength: 1, maxlength: 150 %>
                 <%= form.submit "Update" %>  
                 <% end %>
             </div>
