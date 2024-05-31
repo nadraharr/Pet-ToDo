@@ -5,9 +5,9 @@
 
   <%= render @tasks %>
   <div class="col d-flex">
-  <%= render "tasks/new" %>
-  <%= form_with url: new_day_path do %>
-    <%= submit_tag "Start new day", class: "btn btn-outline-secondary me-2" %>
-  <% end %>
+    <%= render "tasks/new" %>
+    <%= form_with url: new_day_path do %>
+      <%= submit_tag "Start new day", class: "btn btn-outline-secondary me-2" %>
+    <% end %>
   </div>
 <% end %>

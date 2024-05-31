@@ -1,8 +1,6 @@
 class UsersController < ApplicationController
-
     def new
         @user = User.new
-        @current_page = "signup"
     end
 
     def create

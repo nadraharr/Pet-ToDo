@@ -68,5 +68,6 @@ end
 
 group :test do
   gem 'shoulda-matchers', '~> 6.2'
+  gem 'rails-controller-testing'
 end
 

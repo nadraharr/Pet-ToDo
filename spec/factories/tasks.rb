@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :task do
     user
-    title { "just do it" }
+    title { Faker::Lorem.sentence }
   end
 end
